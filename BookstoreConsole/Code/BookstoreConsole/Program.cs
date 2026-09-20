@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace BookstoreConsole
 {
@@ -53,7 +53,7 @@ namespace BookstoreConsole
 				catch (SqlException ex)
 				{
 					if (ex.Number == 547)
-						Console.WriteLine("Error: that conflicts with a foreign key (a book needs a valid author, and an author with books can't be deleted).");
+						Console.WriteLine("Error: That conflicts with a foreign key constraint (a book needs a valid author, and an author with existing books cannot be deleted).");
 					else
 						Console.WriteLine("Database error: " + ex.Message);
 				}
@@ -84,7 +84,7 @@ namespace BookstoreConsole
 			Console.WriteLine("Books.AuthorID is a foreign key to Authors.AuthorID");
 		}
 
-		// ---------- The 4 menu options ----------
+		// ---------- The 4 Menu Options ----------
 
 		static void GetData()
 		{
@@ -107,7 +107,7 @@ namespace BookstoreConsole
 				author.BirthYear = ReadOptionalInt("Birth year (Enter to skip)");
 
 				int newId = data.InsertAuthor(author);
-				Console.WriteLine("Author added:");
+				Console.WriteLine("Author added successfully:");
 				ShowAuthors(new List<Author> { data.GetAuthorById(newId) });
 			}
 			else if (table == 2)
@@ -123,7 +123,7 @@ namespace BookstoreConsole
 				book.Price = ReadDecimal("Price");
 
 				int newId = data.InsertBook(book);
-				Console.WriteLine("Book added:");
+				Console.WriteLine("Book added successfully:");
 				ShowBooks(new List<Book> { data.GetBookById(newId) });
 			}
 		}
@@ -191,4 +191,128 @@ namespace BookstoreConsole
 				}
 
 				int rows = data.DeleteAuthor(id);
-				Console.WriteLine(rows + " row(s)
+				Console.WriteLine(rows + " row(s) deleted.");
+				ShowAuthors(data.GetAllAuthors());
+			}
+			else if (table == 2)
+			{
+				ShowBooks(data.GetAllBooks());
+				int id = ReadInt("Enter the BookID to delete");
+				if (data.GetBookById(id) == null)
+				{
+					Console.WriteLine("No book with that ID.");
+					return;
+				}
+
+				int rows = data.DeleteBook(id);
+				Console.WriteLine(rows + " row(s) deleted.");
+				ShowBooks(data.GetAllBooks());
+			}
+		}
+
+		// ---------- UI Helpers ----------
+
+		static int PickTable()
+		{
+			while (true)
+			{
+				Console.WriteLine("\nSelect Table:");
+				Console.WriteLine("1. Authors");
+				Console.WriteLine("2. Books");
+				Console.Write("Choice: ");
+				string input = Console.ReadLine();
+				if (input == "1") return 1;
+				if (input == "2") return 2;
+				Console.WriteLine("Invalid choice. Enter 1 or 2.");
+			}
+		}
+
+		static string PickColumn(string[] columns)
+		{
+			Console.WriteLine("Columns available to update: " + string.Join(", ", columns));
+			Console.Write("Enter column name exactly as shown: ");
+			string choice = Console.ReadLine()?.Trim();
+			foreach (var col in columns)
+			{
+				if (col.Equals(choice, StringComparison.OrdinalIgnoreCase))
+					return col;
+			}
+			Console.WriteLine("Invalid column name.");
+			return null;
+		}
+
+		static void ShowAuthors(List<Author> authors)
+		{
+			Console.WriteLine($"\n{"ID",-5} | {"First Name",-15} | {"Last Name",-15} | {"Country",-18} | {"Birth Year",-10}");
+			Console.WriteLine(new string('-', 72));
+			foreach (var a in authors)
+			{
+				Console.WriteLine($"{a.AuthorID,-5} | {a.FirstName,-15} | {a.LastName,-15} | {a.Country,-18} | {a.BirthYear?.ToString() ?? "NULL",-10}");
+			}
+			Console.WriteLine();
+		}
+
+		static void ShowBooks(List<Book> books)
+		{
+			Console.WriteLine($"\n{"ID",-5} | {"Title",-32} | {"AuthorID",-9} | {"Genre",-18} | {"Year",-6} | {"Price",-8}");
+			Console.WriteLine(new string('-', 85));
+			foreach (var b in books)
+			{
+				Console.WriteLine($"{b.BookID,-5} | {b.Title,-32} | {b.AuthorID,-9} | {b.Genre,-18} | {b.PublishedYear?.ToString() ?? "NULL",-6} | ${b.Price,-8:F2}");
+			}
+			Console.WriteLine();
+		}
+
+		static string ReadRequired(string label)
+		{
+			while (true)
+			{
+				Console.Write($"{label}: ");
+				string input = Console.ReadLine()?.Trim();
+				if (!string.IsNullOrEmpty(input))
+					return input;
+				Console.WriteLine("This field is required.");
+			}
+		}
+
+		static string ReadOptional(string label)
+		{
+			Console.Write($"{label}: ");
+			return Console.ReadLine()?.Trim() ?? "";
+		}
+
+		static int ReadInt(string label)
+		{
+			while (true)
+			{
+				Console.Write($"{label}: ");
+				if (int.TryParse(Console.ReadLine(), out int val))
+					return val;
+				Console.WriteLine("Please enter a valid whole number.");
+			}
+		}
+
+		static int? ReadOptionalInt(string label)
+		{
+			Console.Write($"{label}: ");
+			string input = Console.ReadLine()?.Trim();
+			if (string.IsNullOrEmpty(input))
+				return null;
+			if (int.TryParse(input, out int val))
+				return val;
+			Console.WriteLine("Invalid number format. Skipping value.");
+			return null;
+		}
+
+		static decimal ReadDecimal(string label)
+		{
+			while (true)
+			{
+				Console.Write($"{label}: ");
+				if (decimal.TryParse(Console.ReadLine(), out decimal val))
+					return val;
+				Console.WriteLine("Please enter a valid decimal number.");
+			}
+		}
+	}
+}
