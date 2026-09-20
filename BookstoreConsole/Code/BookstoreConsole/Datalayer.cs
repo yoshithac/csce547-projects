@@ -126,7 +126,6 @@ namespace BookstoreConsole
                 command.Parameters.AddWithValue("@country", DbValue(author.Country));
                 command.Parameters.AddWithValue("@birthYear", DbValue(author.BirthYear));
                 connection.Open();
-                // SCOPE_IDENTITY gives us the ID of the row we just inserted
                 return Convert.ToInt32(command.ExecuteScalar());
             }
         }
@@ -137,7 +136,6 @@ namespace BookstoreConsole
             if (Array.IndexOf(allowedColumns, columnName) < 0)
                 return 0;
 
-            // Column names can't be SQL parameters, so we only allow the known names above
             string sql = "UPDATE Authors SET " + columnName + " = @value WHERE AuthorID = @id";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
