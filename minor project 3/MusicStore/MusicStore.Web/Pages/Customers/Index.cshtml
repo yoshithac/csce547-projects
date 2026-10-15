@@ -1,0 +1,25 @@
+@page
+@model IndexModel
+@{ ViewData["Title"] = "Customers"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Customers</h2>
+    <a class="btn btn-success" asp-page="Edit">+ Add Customer</a>
+</div>
+<table class="table table-striped align-middle">
+    <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var c in Model.Customers)
+    {
+        <tr>
+            <td>@c.FirstName @c.LastName</td><td>@c.Email</td><td>@c.Phone</td><td>@c.City</td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-primary" asp-page="Edit" asp-route-id="@c.CustomerId">Edit</a>
+                <form method="post" asp-page-handler="Delete" asp-route-id="@c.CustomerId" class="d-inline"
+                      onsubmit="return confirm('Delete this customer?');">
+                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

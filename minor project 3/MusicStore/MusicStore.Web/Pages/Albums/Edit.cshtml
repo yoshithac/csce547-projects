@@ -1,0 +1,17 @@
+@page "{id:int?}"
+@model EditModel
+@{ ViewData["Title"] = Model.Item.AlbumId == 0 ? "Add Album" : "Edit Album"; }
+<h2>@ViewData["Title"]</h2>
+<form method="post" class="col-md-6">
+    <input type="hidden" asp-for="Item.AlbumId" />
+    <div class="mb-3"><label asp-for="Item.Title" class="form-label"></label><input asp-for="Item.Title" class="form-control" /><span asp-validation-for="Item.Title" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Item.ArtistId" class="form-label"></label>
+        <select asp-for="Item.ArtistId" asp-items="Model.ArtistOptions" class="form-select"><option value="0">-- choose an artist --</option></select>
+        <span asp-validation-for="Item.ArtistId" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Item.Genre" class="form-label"></label><input asp-for="Item.Genre" class="form-control" /><span asp-validation-for="Item.Genre" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Item.ReleaseYear" class="form-label"></label><input asp-for="Item.ReleaseYear" type="number" class="form-control" /><span asp-validation-for="Item.ReleaseYear" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Item.Price" class="form-label"></label><input asp-for="Item.Price" type="number" step="0.01" class="form-control" /><span asp-validation-for="Item.Price" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Item.Stock" class="form-label"></label><input asp-for="Item.Stock" type="number" class="form-control" /><span asp-validation-for="Item.Stock" class="text-danger"></span></div>
+    <button class="btn btn-primary">Save</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Cancel</a>
+</form>

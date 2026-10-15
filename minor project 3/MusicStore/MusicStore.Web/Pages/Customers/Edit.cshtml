@@ -1,0 +1,14 @@
+@page "{id:int?}"
+@model EditModel
+@{ ViewData["Title"] = Model.Item.CustomerId == 0 ? "Add Customer" : "Edit Customer"; }
+<h2>@ViewData["Title"]</h2>
+<form method="post" class="col-md-6">
+    <input type="hidden" asp-for="Item.CustomerId" />
+    <div class="mb-3"><label asp-for="Item.FirstName" class="form-label"></label><input asp-for="Item.FirstName" class="form-control" /><span asp-validation-for="Item.FirstName" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Item.LastName" class="form-label"></label><input asp-for="Item.LastName" class="form-control" /><span asp-validation-for="Item.LastName" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Item.Email" class="form-label"></label><input asp-for="Item.Email" class="form-control" /><span asp-validation-for="Item.Email" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Item.Phone" class="form-label"></label><input asp-for="Item.Phone" class="form-control" /><span asp-validation-for="Item.Phone" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Item.City" class="form-label"></label><input asp-for="Item.City" class="form-control" /><span asp-validation-for="Item.City" class="text-danger"></span></div>
+    <button class="btn btn-primary">Save</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Cancel</a>
+</form>

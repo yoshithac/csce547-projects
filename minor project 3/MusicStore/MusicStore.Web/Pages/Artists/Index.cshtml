@@ -1,0 +1,32 @@
+@page
+@model IndexModel
+@{ ViewData["Title"] = "Artists"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Artists <small class="text-body-secondary fs-6">(admin-only table)</small></h2>
+    @if (Model.IsAdmin) { <a class="btn btn-success" asp-page="Edit">+ Add Artist</a> }
+</div>
+@if (!Model.IsAdmin)
+{
+    <div class="alert alert-warning">Read-only. Turn on <a asp-page="/Settings">Admin Mode in Settings</a> to add, edit, or delete artists.</div>
+}
+<table class="table table-striped align-middle">
+    <thead><tr><th>Name</th><th>Country</th><th>Active Since</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var a in Model.Artists)
+    {
+        <tr>
+            <td>@a.Name</td><td>@a.Country</td><td>@a.ActiveSince</td>
+            <td class="text-end">
+            @if (Model.IsAdmin)
+            {
+                <a class="btn btn-sm btn-outline-primary" asp-page="Edit" asp-route-id="@a.ArtistId">Edit</a>
+                <form method="post" asp-page-handler="Delete" asp-route-id="@a.ArtistId" class="d-inline"
+                      onsubmit="return confirm('Delete this artist?');">
+                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+            }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

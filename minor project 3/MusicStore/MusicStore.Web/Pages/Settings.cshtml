@@ -1,0 +1,18 @@
+@page
+@model SettingsModel
+@{ ViewData["Title"] = "Settings"; }
+<h2>Settings</h2>
+<form method="post" class="col-md-6">
+    <div class="mb-3">
+        <label asp-for="Theme" class="form-label">Theme</label>
+        <select asp-for="Theme" class="form-select w-auto">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+        </select>
+    </div>
+    <div class="form-check mb-3">
+        <input asp-for="AdminMode" class="form-check-input" />
+        <label asp-for="AdminMode" class="form-check-label">Admin Mode (allows adding, editing, and deleting Artists)</label>
+    </div>
+    <button class="btn btn-primary">Save Settings</button>
+</form>
