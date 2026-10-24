@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "User Settings";
+    var currentTheme = ViewBag.Theme as string ?? "light";
+    var currentDensity = ViewBag.Density as string ?? "standard";
+}
+
+<h2>User Application Preferences</h2>
+<p class="text-muted">Customize your UI theme and table row display density. Preferences are persisted across sessions via cookies.</p>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card p-4">
+            <form asp-action="SaveSettings" method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Interface Theme</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="theme" id="themeLight" value="light" @(currentTheme == "light" ? "checked" : "") />
+                        <label class="form-check-label" for="themeLight">Light Theme (Default)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="theme" id="themeDark" value="dark" @(currentTheme == "dark" ? "checked" : "") />
+                        <label class="form-check-label" for="themeDark">Dark Theme</label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Data Grid Density</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="density" id="densityStandard" value="standard" @(currentDensity == "standard" ? "checked" : "") />
+                        <label class="form-check-label" for="densityStandard">Standard Padding</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="density" id="densityCompact" value="compact" @(currentDensity == "compact" ? "checked" : "") />
+                        <label class="form-check-label" for="densityCompact">Compact View (High Density)</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Preferences</button>
+            </form>
+        </div>
+    </div>
+</div>

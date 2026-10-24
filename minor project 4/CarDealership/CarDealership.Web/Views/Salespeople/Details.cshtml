@@ -1,0 +1,21 @@
+@model CarDealership.Data.Entities.Salesperson
+@{
+    ViewData["Title"] = "Salesperson Details";
+}
+<h2>Representative Details</h2>
+<div class="card p-4 my-3">
+    <dl class="row">
+        <dt class="col-sm-3">Full Name</dt>
+        <dd class="col-sm-9">@Model.FullName</dd>
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@Model.Email</dd>
+        <dt class="col-sm-3">Phone</dt>
+        <dd class="col-sm-9">@Model.Phone</dd>
+        <dt class="col-sm-3">Commission</dt>
+        <dd class="col-sm-9">@Model.CommissionRate%</dd>
+        <dt class="col-sm-3">Branch</dt>
+        <dd class="col-sm-9">@Model.Dealership?.BranchName</dd>
+    </dl>
+</div>
+<a asp-action="Edit" asp-route-id="@Model.SalespersonId" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

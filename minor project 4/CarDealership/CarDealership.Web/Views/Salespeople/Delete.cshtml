@@ -1,0 +1,21 @@
+@model CarDealership.Data.Entities.Salesperson
+@{
+    ViewData["Title"] = "Delete Salesperson";
+}
+<h2 class="text-danger">Delete Confirmation</h2>
+<h4>Are you sure you want to remove this representative?</h4>
+<div class="card p-3 my-3">
+    <dl class="row">
+        <dt class="col-sm-3">Full Name</dt>
+        <dd class="col-sm-9">@Model.FullName</dd>
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@Model.Email</dd>
+        <dt class="col-sm-3">Phone</dt>
+        <dd class="col-sm-9">@Model.Phone</dd>
+    </dl>
+</div>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="SalespersonId" />
+    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

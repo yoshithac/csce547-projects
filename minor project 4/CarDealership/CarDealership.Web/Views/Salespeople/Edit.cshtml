@@ -1,0 +1,35 @@
+@model CarDealership.Data.Entities.Salesperson
+@{
+    ViewData["Title"] = "Edit Salesperson";
+}
+<h2>Edit Representative</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="SalespersonId" />
+            <div class="mb-2">
+                <label asp-for="FullName" class="form-label"></label>
+                <input asp-for="FullName" class="form-control" required />
+            </div>
+            <div class="mb-2">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" type="email" class="form-control" required />
+            </div>
+            <div class="mb-2">
+                <label asp-for="Phone" class="form-label"></label>
+                <input asp-for="Phone" class="form-control" required />
+            </div>
+            <div class="mb-2">
+                <label asp-for="CommissionRate" class="form-label">Commission Rate (%)</label>
+                <input asp-for="CommissionRate" type="number" step="0.01" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Dealership Branch</label>
+                <select asp-for="DealershipId" class="form-select" asp-items="ViewBag.DealershipId"></select>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

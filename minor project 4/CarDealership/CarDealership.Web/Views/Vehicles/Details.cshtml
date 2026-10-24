@@ -1,0 +1,25 @@
+@model CarDealership.Data.Entities.Vehicle
+@{
+    ViewData["Title"] = "Vehicle Details";
+}
+<h2>Vehicle Details</h2>
+<div class="card p-4 my-3">
+    <dl class="row">
+        <dt class="col-sm-3">VIN</dt>
+        <dd class="col-sm-9"><code>@Model.VIN</code></dd>
+        <dt class="col-sm-3">Make / Model</dt>
+        <dd class="col-sm-9">@Model.Make @Model.Model</dd>
+        <dt class="col-sm-3">Year</dt>
+        <dd class="col-sm-9">@Model.Year</dd>
+        <dt class="col-sm-3">Color</dt>
+        <dd class="col-sm-9">@Model.Color</dd>
+        <dt class="col-sm-3">Price</dt>
+        <dd class="col-sm-9">@Model.Price.ToString("C")</dd>
+        <dt class="col-sm-3">Mileage</dt>
+        <dd class="col-sm-9">@Model.Mileage.ToString("N0") mi</dd>
+        <dt class="col-sm-3">Location</dt>
+        <dd class="col-sm-9">@Model.Dealership?.BranchName (@Model.Dealership?.City, @Model.Dealership?.State)</dd>
+    </dl>
+</div>
+<a asp-action="Edit" asp-route-id="@Model.VehicleId" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

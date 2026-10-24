@@ -1,0 +1,23 @@
+@model CarDealership.Data.Entities.Dealership
+@{
+    ViewData["Title"] = "Admin - Delete Branch";
+}
+<h2 class="text-danger">Admin Alert: Delete Dealership</h2>
+<div class="alert alert-danger">
+    Deleting this dealership branch will cascade and permanently remove all associated vehicles and sales staff records.
+</div>
+<div class="card p-3 my-3">
+    <dl class="row">
+        <dt class="col-sm-3">Branch Name</dt>
+        <dd class="col-sm-9">@Model.BranchName</dd>
+        <dt class="col-sm-3">Location</dt>
+        <dd class="col-sm-9">@Model.City, @Model.State</dd>
+        <dt class="col-sm-3">Phone</dt>
+        <dd class="col-sm-9">@Model.Phone</dd>
+    </dl>
+</div>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="DealershipId" />
+    <button type="submit" class="btn btn-danger">Confirm Cascade Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
