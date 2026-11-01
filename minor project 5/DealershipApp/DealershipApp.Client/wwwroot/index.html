@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dealership Client</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Dealership Client</h1>
+      <p>Test client for the DealershipApp Web API</p>
+    </div>
+    <form id="api-form" class="api-form">
+      <label for="api-base">API address</label>
+      <input id="api-base" type="url" required spellcheck="false" autocomplete="off">
+      <button type="submit">Use</button>
+    </form>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Tables">
+    <button type="button" role="tab" data-resource="dealerships" aria-selected="true">Dealerships</button>
+    <button type="button" role="tab" data-resource="salespeople" aria-selected="false">Salespeople</button>
+    <button type="button" role="tab" data-resource="vehicles" aria-selected="false">Vehicles</button>
+  </nav>
+
+  <main>
+    <section class="controls" aria-label="Requests">
+      <button type="button" id="get-all" class="primary">Get all</button>
+      <form id="get-one" class="get-one">
+        <label for="record-id">ID</label>
+        <input id="record-id" type="number" min="1" step="1" value="1" required>
+        <button type="submit" id="get-one-button">Get by ID</button>
+      </form>
+    </section>
+
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+
+    <section id="single" class="card" aria-live="polite" hidden></section>
+
+    <section id="list" class="list" hidden>
+      <h2 id="list-title"></h2>
+      <div class="table-wrap">
+        <table>
+          <thead id="list-head"></thead>
+          <tbody id="list-body"></tbody>
+        </table>
+      </div>
+      <p class="hint">Click a row to load that record by ID.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

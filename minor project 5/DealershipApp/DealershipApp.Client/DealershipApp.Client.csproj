@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!-- CLIENT: a tiny web server that hosts the HTML/JavaScript test page in wwwroot on its own port. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Lets the app run on a newer .NET runtime (9 or 10) if .NET 8 isn't installed. -->
+    <RollForward>Major</RollForward>
+  </PropertyGroup>
+
+</Project>

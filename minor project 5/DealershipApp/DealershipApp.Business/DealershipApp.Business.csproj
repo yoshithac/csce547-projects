@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- BUSINESS LAYER: friendly methods (Save, Delete, lookups) and validation rules on top of the data layer. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DealershipApp.Data\DealershipApp.Data.csproj" />
+  </ItemGroup>
+
+</Project>

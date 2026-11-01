@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "API + Client",
+    "Projects": [
+      {
+        "Path": "DealershipApp.Api\\DealershipApp.Api.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "DealershipApp.Client\\DealershipApp.Client.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      }
+    ]
+  }
+]

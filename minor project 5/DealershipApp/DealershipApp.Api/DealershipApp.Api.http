@@ -1,0 +1,100 @@
+# Test requests for Visual Studio: open this file and click "Send request" above any request.
+@Api = http://localhost:5080
+
+### ---------- Dealerships ----------
+GET {{Api}}/api/dealerships
+Accept: application/json
+
+###
+GET {{Api}}/api/dealerships/1
+Accept: application/json
+
+###
+GET {{Api}}/api/dealerships/1/salespeople
+Accept: application/json
+
+###
+GET {{Api}}/api/dealerships/1/vehicles
+Accept: application/json
+
+### Insert (Id = 0 means "new")
+POST {{Api}}/api/dealerships
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Gamecock Auto Sales",
+  "city": "Columbia"
+}
+
+### Update (use the Id returned by the insert above)
+POST {{Api}}/api/dealerships
+Content-Type: application/json
+
+{
+  "id": 51,
+  "name": "Gamecock Auto Sales & Service",
+  "city": "Columbia"
+}
+
+### Delete (also deletes that dealership's salespeople and vehicles)
+DELETE {{Api}}/api/dealerships/51
+
+### ---------- Salespeople ----------
+GET {{Api}}/api/salespeople
+Accept: application/json
+
+###
+GET {{Api}}/api/salespeople/1
+Accept: application/json
+
+###
+GET {{Api}}/api/salespeople?dealershipId=1
+Accept: application/json
+
+###
+POST {{Api}}/api/salespeople
+Content-Type: application/json
+
+{
+  "id": 0,
+  "dealershipId": 1,
+  "fullName": "Test Person",
+  "email": "Test.Person@ApexMotors.com"
+}
+
+### ---------- Vehicles ----------
+GET {{Api}}/api/vehicles
+Accept: application/json
+
+###
+GET {{Api}}/api/vehicles/1
+Accept: application/json
+
+###
+POST {{Api}}/api/vehicles
+Content-Type: application/json
+
+{
+  "id": 0,
+  "dealershipId": 1,
+  "vin": "1hgcv1f30ma100099",
+  "make": "Honda",
+  "model": "Accord",
+  "year": 2021,
+  "price": 25999.5
+}
+
+### Validation error example: returns 400 with a message for each bad field
+POST {{Api}}/api/vehicles
+Content-Type: application/json
+
+{
+  "id": 0,
+  "dealershipId": 999,
+  "vin": "BAD",
+  "make": "",
+  "model": "Thing",
+  "year": 1800,
+  "price": -5
+}

@@ -1,0 +1,151 @@
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --text: #1c2430;
+  --muted: #5d6878;
+  --border: #d9dee6;
+  --accent: #1f5fbf;
+  --accent-dark: #174a96;
+  --ok-bg: #e7f4ec;
+  --ok-text: #1b6b3a;
+  --error-bg: #fdecec;
+  --error-text: #a12626;
+  --radius: 8px;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 28px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand h1 { margin: 0; font-size: 22px; }
+.brand p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+
+.api-form { display: flex; align-items: center; gap: 8px; }
+.api-form label { color: var(--muted); font-size: 13px; }
+.api-form input { width: 230px; }
+
+input {
+  font: inherit;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+button {
+  font: inherit;
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button.primary:hover { background: var(--accent-dark); }
+button:disabled { opacity: 0.6; cursor: progress; }
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 0 28px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.tabs button {
+  border: none;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  padding: 12px 16px;
+  color: var(--muted);
+  background: none;
+}
+
+.tabs button[aria-selected="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+main { padding: 20px 28px 40px; max-width: 1200px; }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.get-one { display: flex; align-items: center; gap: 8px; }
+.get-one input { width: 90px; }
+
+.status {
+  margin: 16px 0 0;
+  padding: 9px 12px;
+  border-radius: 6px;
+  font-family: Consolas, "Cascadia Mono", Menlo, monospace;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.status.ok { background: var(--ok-bg); color: var(--ok-text); }
+.status.error { background: var(--error-bg); color: var(--error-text); }
+.status.pending { background: #eef1f6; color: var(--muted); }
+
+.card {
+  margin-top: 16px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 640px;
+}
+.card h2 { margin: 0 0 10px; font-size: 17px; }
+.card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 4px; }
+.card dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 0; }
+.card dt { color: var(--muted); }
+.card dd { margin: 0; overflow-wrap: anywhere; }
+
+.list { margin-top: 20px; }
+.list h2 { font-size: 16px; margin: 0 0 8px; }
+
+.table-wrap {
+  max-height: 520px;
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { position: sticky; top: 0; background: #eef1f6; font-size: 13px; color: var(--muted); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: #f0f5fd; }
+tbody tr:last-child td { border-bottom: none; }
+
+.hint { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+
+@media (max-width: 640px) {
+  .topbar, main { padding-left: 16px; padding-right: 16px; }
+  .tabs { padding: 0 8px; }
+  .api-form input { width: 100%; }
+  .api-form { width: 100%; }
+}
